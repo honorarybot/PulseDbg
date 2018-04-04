@@ -316,7 +316,7 @@ int main()
 	PPS_ENGINE     EngineHandle = NULL;
 
 	// TransportCreate creates a transport instance. It's a first step in creating a transport for engine
-	status = Pulse.TransportCreate(&TransportHandle, pttPipe);
+	status = Pulse.TransportCreate(&TransportHandle, pttNet);
 	if (status != PULSE_STATUS_SUCCESS)
 	{
 		printf("TransportCreate failed with status %llx\n", status);
@@ -369,9 +369,13 @@ int main()
 		status = Pulse.TransportSetInterfaceName(TransportHandle, "\\\\.\\pipe\\com_1");
 		if (status != PULSE_STATUS_SUCCESS)
 		{
-			printf("TransportSetInterfaceIndex failed with status %llx\n", status);
-			Pulse.TransportDestroy(TransportHandle);
-			return 0;
+			status = Pulse.TransportSetInterfaceName(TransportHandle, "192.168.85.100:50100");
+			if (status != PULSE_STATUS_SUCCESS)
+			{
+				printf("TransportSetInterfaceIndex failed with status %llx\n", status);
+				Pulse.TransportDestroy(TransportHandle);
+				return 0;
+			}
 		}
 	}
 

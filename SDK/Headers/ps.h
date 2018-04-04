@@ -14,6 +14,7 @@ typedef enum _PS_TRANSPORT_TYPE
 {
 	pttInvalid = 0,
 	pttSerial = 1,
+	pttNet = 6,
 	pttPipe = 9,
 	pttLocal = 10,
 	pttMax = 10
